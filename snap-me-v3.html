@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Important Question 💗</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,500&family=Poppins:wght@400;500;600;700&display=swap');
+
+  :root{
+    --pink-deep: #4a0f2b;
+    --pink: #a3244d;
+    --rose: #e8607f;
+    --blush: #ffc7d8;
+    --cream: #fff5f7;
+  }
+
+  *{box-sizing:border-box;}
+
+  html, body{
+    margin:0;
+    height:100%;
+    width:100%;
+  }
+
+  body{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+      radial-gradient(ellipse at 50% 15%, rgba(255,199,216,0.25), transparent 60%),
+      linear-gradient(180deg, var(--pink-deep), var(--pink) 55%, #6e1a3d);
+    font-family:'Poppins', sans-serif;
+    overflow:hidden;
+    position:relative;
+  }
+
+  .heart{
+    position:fixed;
+    bottom:-40px;
+    color:var(--blush);
+    opacity:0.6;
+    animation:rise linear infinite;
+    pointer-events:none;
+    user-select:none;
+  }
+  @keyframes rise{
+    0%{transform:translateY(0) translateX(0) rotate(0deg); opacity:0;}
+    10%{opacity:0.7;}
+    100%{transform:translateY(-110vh) translateX(var(--drift,20px)) rotate(360deg); opacity:0;}
+  }
+
+  .card{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    padding:56px 44px;
+    max-width:440px;
+    width:88%;
+    background:rgba(74,15,43,0.5);
+    border:1px solid rgba(255,199,216,0.35);
+    border-radius:20px;
+    backdrop-filter:blur(6px);
+    box-shadow:0 30px 80px rgba(0,0,0,0.45), inset 0 0 60px rgba(255,199,216,0.06);
+  }
+
+  .icon{
+    font-size:36px;
+    margin-bottom:8px;
+    filter:drop-shadow(0 0 14px rgba(255,199,216,0.5));
+    animation:pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.12);}
+  }
+
+  .eyebrow{
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    color:var(--blush);
+    letter-spacing:2px;
+    font-size:13px;
+    margin-bottom:14px;
+    opacity:0.85;
+  }
+
+  h1{
+    font-family:'Playfair Display', serif;
+    font-weight:700;
+    color:var(--cream);
+    font-size:clamp(24px, 5vw, 32px);
+    line-height:1.5;
+    margin:0 0 8px;
+  }
+
+  .highlight{
+    color:var(--blush);
+  }
+
+  .sub{
+    color:rgba(255,245,247,0.6);
+    font-size:14px;
+    margin-bottom:34px;
+  }
+
+  .btn-row{
+    display:flex;
+    justify-content:center;
+    gap:22px;
+    position:relative;
+    min-height:60px;
+  }
+
+  button{
+    font-family:'Poppins', sans-serif;
+    font-weight:600;
+    font-size:17px;
+    padding:14px 32px;
+    border-radius:999px;
+    border:none;
+    cursor:pointer;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+
+  .yes{
+    background:linear-gradient(135deg, var(--rose), #c23a63);
+    color:#fff5f7;
+    box-shadow:0 8px 20px rgba(232,96,127,0.4);
+  }
+  .yes:hover{transform:translateY(-2px) scale(1.03);}
+
+  .no{
+    background:transparent;
+    color:var(--blush);
+    border:1.5px solid rgba(255,199,216,0.5);
+  }
+  .no:hover{
+    background:rgba(255,199,216,0.08);
+  }
+
+  .confirm-box{
+    margin-top:22px;
+    padding-top:16px;
+    border-top:1px dashed rgba(255,199,216,0.3);
+    color:var(--blush);
+    font-size:14px;
+    display:none;
+    animation:fadein .3s ease;
+  }
+  .confirm-box.show{display:block;}
+  @keyframes fadein{from{opacity:0; transform:translateY(-6px);} to{opacity:1; transform:translateY(0);}}
+
+  .confirm-buttons{
+    margin-top:12px;
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    position:relative;
+    min-height:44px;
+  }
+  .confirm-buttons button{
+    font-size:13px;
+    padding:9px 20px;
+  }
+
+  /* the button that dodges the cursor */
+  .dodge-btn{
+    background:transparent;
+    border:1px solid var(--blush);
+    color:var(--blush);
+    position:fixed;
+    z-index:50;
+    transition:left .18s ease, top .18s ease;
+    animation:wiggle 0.7s ease-in-out infinite;
+  }
+  @keyframes wiggle{
+    0%,100%{transform:translateX(0);}
+    25%{transform:translateX(-10px);}
+    75%{transform:translateX(10px);}
+  }
+
+  .stay-btn{
+    background:var(--rose);
+    color:#fff5f7;
+    border:none;
+  }
+
+  .result{
+    margin-top:26px;
+    display:none;
+  }
+  .result.show{display:block; animation:fadein .4s ease;}
+
+  .result-title{
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    color:var(--blush);
+    font-size:18px;
+    margin-bottom:10px;
+  }
+
+  .username-box{
+    display:inline-block;
+    background:rgba(255,199,216,0.12);
+    border:1px solid rgba(255,199,216,0.4);
+    border-radius:12px;
+    padding:12px 26px;
+    font-family:'Poppins', sans-serif;
+    font-weight:700;
+    font-size:20px;
+    letter-spacing:1px;
+    color:var(--cream);
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="icon">💗</div>
+  <div class="eyebrow">just one question...</div>
+  <h1>
+    Would you add me on
+    <span class="highlight">Snapchat</span>?
+  </h1>
+  <div class="sub">choose wisely 😏</div>
+
+  <div class="btn-row" id="btnRow">
+    <button class="yes" id="yesBtn" onclick="showUsername()">Yes</button>
+    <button class="no" id="noBtn" onclick="sayNo()">No</button>
+  </div>
+
+  <div class="confirm-box" id="confirmBox">
+    Are you sure?
+    <div class="confirm-buttons">
+      <button class="dodge-btn" id="dodgeBtn">Yes, I'm sure</button>
+      <button class="stay-btn" onclick="showUsername()">No, I want to add you</button>
+    </div>
+  </div>
+
+  <div class="result" id="resultBox">
+    <div class="result-title">Here you go 💗</div>
+    <div class="username-box">User: AKGNOW</div>
+  </div>
+</div>
+
+<script>
+// floating hearts background
+const hearts = ['💗','💕','💖','🩷'];
+for(let i=0;i<24;i++){
+  const e = document.createElement('div');
+  e.className='heart';
+  e.textContent = hearts[Math.floor(Math.random()*hearts.length)];
+  e.style.left = Math.random()*100+'vw';
+  e.style.setProperty('--drift', (Math.random()*80-40)+'px');
+  e.style.animationDuration = (8+Math.random()*10)+'s';
+  e.style.animationDelay = (Math.random()*10)+'s';
+  e.style.fontSize = (14+Math.random()*16)+'px';
+  document.body.appendChild(e);
+}
+
+const btnRow = document.getElementById('btnRow');
+const confirmBox = document.getElementById('confirmBox');
+const resultBox = document.getElementById('resultBox');
+const dodgeBtn = document.getElementById('dodgeBtn');
+
+function showUsername(){
+  btnRow.style.display = 'none';
+  confirmBox.classList.remove('show');
+  stopDodging();
+  resultBox.classList.add('show');
+}
+
+function sayNo(){
+  confirmBox.classList.add('show');
+  startDodging();
+}
+
+// dodge logic: button jumps to a random spot on screen,
+// and runs away further whenever the cursor gets close to it
+let dodgeInterval;
+
+function randomPosition(){
+  const margin = 60;
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+  const left = margin + Math.random() * (w - margin*2 - dodgeBtn.offsetWidth);
+  const top = margin + Math.random() * (h - margin*2 - dodgeBtn.offsetHeight);
+  dodgeBtn.style.left = left + 'px';
+  dodgeBtn.style.top = top + 'px';
+}
+
+function startDodging(){
+  dodgeBtn.style.position = 'fixed';
+  randomPosition();
+  dodgeInterval = setInterval(randomPosition, 900);
+}
+
+function stopDodging(){
+  clearInterval(dodgeInterval);
+}
+
+// extra: jump away the instant the mouse gets near it
+document.addEventListener('mousemove', (e) => {
+  if (!confirmBox.classList.contains('show')) return;
+  const rect = dodgeBtn.getBoundingClientRect();
+  const dx = e.clientX - (rect.left + rect.width/2);
+  const dy = e.clientY - (rect.top + rect.height/2);
+  const dist = Math.sqrt(dx*dx + dy*dy);
+  if (dist < 90){
+    randomPosition();
+  }
+});
+
+// on mobile, dodge on touch near it too
+document.addEventListener('touchstart', (e) => {
+  if (!confirmBox.classList.contains('show')) return;
+  const touch = e.touches[0];
+  const rect = dodgeBtn.getBoundingClientRect();
+  const dx = touch.clientX - (rect.left + rect.width/2);
+  const dy = touch.clientY - (rect.top + rect.height/2);
+  const dist = Math.sqrt(dx*dx + dy*dy);
+  if (dist < 100){
+    randomPosition();
+  }
+});
+</script>
+
+</body>
+</html>
